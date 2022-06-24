@@ -16,6 +16,9 @@ table {
     td, th {
       color: var(--global-text-color);
     }
+    th{
+      width: 1.1rem;
+    }
     td {
       font-size: 1rem;
     }
