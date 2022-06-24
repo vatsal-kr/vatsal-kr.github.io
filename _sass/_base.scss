@@ -15,14 +15,15 @@ hr {
 table {
     td, th {
       color: var(--global-text-color);
+      vertical-align: middle !important;
     }
     th{
       width: 5rem;
-      vertical-align: middle!important;
+      vertical-align: middle !important;
     }
     td {
       font-size: 1rem;
-      vertical-align: middle!important;
+      vertical-align: middle !important;
     }
 }
 
