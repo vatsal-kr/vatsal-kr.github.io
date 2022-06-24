@@ -1,31 +1,20 @@
 ---
 layout: post
-title: A long announcement with details
-date: 2015-11-07 16:11:00-0400
+title: Won the Natural Language Inference track of the IndoML Datathon 2022
+date: 2021-12-18 16:00:00+0500
 inline: false
 ---
 
-Announcements and news can be much longer than just quick inline posts. In fact, they can have all the features available for the standard blog posts. See below.
-
+The IndoML Datathon was organized as a part of the IndoML Symposium 2021 and was  organized by a team consisting of academics and researchers from IIT Gandhinagar, IIT Kharagpur, University of Warwick, Google, and Microsoft Research with a theme of “Data for AI and AI for Data”. The broad aim of this Datathon is to invite participants to gain experience in solving real world data science/ML problems posed by experts in industry and academia.
 ***
+The challenge comprised of a Conversational Code-switched Natural Language Inference dataset, in English and Hindi (written in Roman script). The premise is a multi-turn dialog and hypothesis is a sentence. Unlike the traditional NLI task, which is to determine whether the hypothesis is entailed by or contradicts with the premise, here, the task is to predict whether the inference of contradiction or entailment would require some sort of external knowledge or not.
 
-Jean shorts raw denim Vice normcore, art party High Life PBR skateboard stumptown vinyl kitsch. Four loko meh 8-bit, tousled banh mi tilde forage Schlitz dreamcatcher twee 3 wolf moon. Chambray asymmetrical paleo salvia, sartorial umami four loko master cleanse drinking vinegar brunch. <a href="https://www.pinterest.com">Pinterest</a> DIY authentic Schlitz, hoodie Intelligentsia butcher trust fund brunch shabby chic Kickstarter forage flexitarian. Direct trade <a href="https://en.wikipedia.org/wiki/Cold-pressed_juice">cold-pressed</a> meggings stumptown plaid, pop-up taxidermy. Hoodie XOXO fingerstache scenester Echo Park. Plaid ugh Wes Anderson, freegan pug selvage fanny pack leggings pickled food truck DIY irony Banksy.
-
-#### Hipster list
-<ul>
-    <li>brunch</li>
-    <li>fixie</li>
-    <li>raybans</li>
-    <li>messenger bag</li>
-</ul>
-
-Hoodie Thundercats retro, tote bag 8-bit Godard craft beer gastropub. Truffaut Tumblr taxidermy, raw denim Kickstarter sartorial dreamcatcher. Quinoa chambray slow-carb salvia readymade, bicycle rights 90's yr typewriter selfies letterpress cardigan vegan.
-
+```
+Exmaple
+Premise: Obama was the President of USA.
+Hypothesis: Obama's family lived in the white house.
+Inference: Entailment
+```
+The external knowledge (external to the provided text) required is "US presidents lives in the white house during their tenure." So, the predicted label  should be 1.
 ***
-
-Pug heirloom High Life vinyl swag, single-origin coffee four dollar toast taxidermy reprehenderit fap distillery master cleanse locavore. Est anim sapiente leggings Brooklyn ea. Thundercats locavore excepteur veniam eiusmod. Raw denim Truffaut Schlitz, migas sapiente Portland VHS twee Bushwick Marfa typewriter retro id keytar.
-
-> We do not grow absolutely, chronologically. We grow sometimes in one dimension, and not in another, unevenly. We grow partially. We are relative. We are mature in one realm, childish in another.
-> —Anais Nin
-
-Fap aliqua qui, scenester pug Echo Park polaroid irony shabby chic ex cardigan church-key Odd Future accusamus. Blog stumptown sartorial squid, gastropub duis aesthetic Truffaut vero. Pinterest tilde twee, odio mumblecore jean shorts lumbersexual.
+The gold-winning approach comprised of obtaining the RoBERTa embeddings by passing the premise and hypothesis through the encoder, concatenating the obtained embeddings, reducing its dimensionality to 128 using PCA, concatenating the NLI label (0 or 1), and passing it through a multi-layer perceptron. This baseline obtained an F1 score of 0.8991.  

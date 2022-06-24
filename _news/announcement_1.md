@@ -1,7 +1,7 @@
 ---
 layout: post
-date: 2015-10-22 15:59:00-0400
+date: 2022-05-09 08:00:00-0700
 inline: true
 ---
 
-A simple inline announcement.
+Started working as a MITACS Globalink Research Intern at the University of British Columbia under Dr Fatemeh Fard.
