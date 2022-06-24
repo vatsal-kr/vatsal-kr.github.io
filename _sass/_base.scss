@@ -11,20 +11,18 @@ p, h1, h2, h3, h4, h5, h6, em, div, li, span, strong {
 hr {
   border-top: 1px solid var(--global-divider-color);
 }
-.news-date {
-  vertical-align: middle;
-}
+
 table {
     td, th {
       color: var(--global-text-color);
     }
     th{
       width: 5rem;
-      vertical-align: middle;
+      vertical-align: middle!important;
     }
     td {
       font-size: 1rem;
-      vertical-align: middle;
+      vertical-align: middle!important;
     }
 }
 
