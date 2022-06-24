@@ -4,7 +4,7 @@ title: That's the Good Word
 description:
 img: assets/img/12.jpg
 importance: 1
-category: NLP
+category: work
 ---
 
 The project is based around a famous General Championship event at IIT Kharagpur, *What's the Good Word*, wherein teams of three compete to guess 5 words in the shortest possible time.  
