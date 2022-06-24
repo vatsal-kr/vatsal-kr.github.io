@@ -28,11 +28,6 @@ layout: default
             {%- endif %}
           </div>
           {%- endif %}
-
-          <div class="clearfix">
-            {{ content }}
-          </div>
-
           {%- if page.social %}
           <!-- Social -->
           <div class="social">
@@ -46,6 +41,9 @@ layout: default
 
           </div>
           {%- endif %}
+          <div class="clearfix">
+            {{ content }}
+          </div>
 
           {% if page.news -%}
           <!-- News -->
