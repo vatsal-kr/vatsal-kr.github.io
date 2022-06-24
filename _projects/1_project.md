@@ -1,80 +1,42 @@
 ---
 layout: page
-title: project 1
-description: a project with a background image
+title: That's the Good Word
+description:
 img: assets/img/12.jpg
 importance: 1
-category: work
+category: NLP
 ---
 
-Every project has a beautiful feature showcase page.
-It's easy to include images in a flexible 3-column grid format.
-Make your photos 1/3, 2/3, or full width.
+The project is based around a famous General Championship event at IIT Kharagpur, *What's the Good Word*, wherein teams of three compete to guess 5 words in the shortest possible time.  
 
-To give your project a background in the portfolio page, just add the img tag to the front matter like so:
+The major rules of the game are:
+1. Each team consists of one *passer* and two *guesser*
+2. The passer gets a list of 5 words, which have to be guessed in the fastest possible time. To aid with this, the passer must pass exactly three words.
+3. The three words passed must not contain any three consecutive letters from the word to be guessed.
+4. The first word must be related to the word to be guessed.
+5. Although the second and third word can be anything, a commonly followed strategy is to choose them such that the first two letters of the second and third word make up the first four letters of the word to be guessed.
+6. In case of improbable alphabet combinations, plurals can be passed.
+7. For some commonly recurring prefixes and suffixes, there is a list of exceptions, which can be passed as the second and the first word respectively.
 
-    ---
-    layout: page
-    title: project
-    description: a project with a background image
-    img: /assets/img/12.jpg
-    ---
-
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/1.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/3.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    Caption photos easily. On the left, a road goes through a tunnel. Middle, leaves artistically fall in a hipster photoshoot. Right, in another hipster photoshoot, a lumberjack grasps a handful of pine needles.
-</div>
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    This image can also have a caption. It's like magic.
-</div>
-
-You can also put regular text between your rows of images.
-Say you wanted to write a little bit about your project before you posted the rest of the images.
-You describe how you toiled, sweated, *bled* for your project, and then... you reveal it's glory in the next row of images.
-
-
-<div class="row justify-content-sm-center">
-    <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.html path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.html path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    You can also have artistically styled 2/3 + 1/3 images, like these.
-</div>
-
-
-The code is simple.
-Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
-To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
-Here's the code for the last row of images above:
-
+Let's have a look at some examples
 {% raw %}
 ```html
-<div class="row justify-content-sm-center">
-    <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.html path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.html path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
+Example 1:  
+Word 1: fire, Word 2: exact, Word 3: tip  
 ```
-{% endraw %}
+{% endraw %}  
+
+Now think of a word starting with "exti" (ex from exact, ti from tip) and related to fire  
+*DRUMROLLLL*  
+No points for guessing "extinguish". Let's do another one
+{% raw %}
+```html
+Example 1:  
+Word 1: culture, Word 2: eternal, Word 3: hens  
+```
+{% endraw %}  
+
+Note that the third word passed is a **plural**, hence, its first and third alphabet must be used.  
+Now, related to culture and starting with "ethn". What's the Good Word?... *ethnic*!
+
+Easy right? Well every freshman inducted into this cult of an event thought so as well. The rules mentioned are just a subset, and this seemingly harmless contest lasts for about 8 hours in practice. So, to alleviate the pain of countless souls, I bring to you an automated solution to this heart wrenching competition: *That's the Good Word*
