@@ -95,15 +95,18 @@ blockquote {
 .profile {
   margin-left: 1rem;
   width: 100%;
-  border-radius: 50%;
+  img{
+    border-radius: 50%;
+  }
   .address {
     margin-bottom: 5px;
     margin-top: 5px;
     font-family: monospace;
-    text-align: center;
     p {
       display: inline-block;
       margin: 0;
+      text-align: center;
+      font-size: 0.8rem;
     }
   }
 }
@@ -262,6 +265,7 @@ blockquote {
 footer.fixed-bottom {
   background-color: var(--global-footer-bg-color);
   font-size: 0.75rem;
+  text-align: center
   .container {
     color: var(--global-footer-text-color);
     padding-top: 9px;
