@@ -2,7 +2,7 @@
 layout: page
 title: That's the Good Word
 description:
-img: assets/img/12.jpg
+img: assets/img/Wordnet_Graph.png
 importance: 1
 category: work
 ---
