@@ -39,4 +39,6 @@ Word 1: culture, Word 2: eternal, Word 3: hens
 Note that the third word passed is a **plural**, hence, its first and third alphabet must be used.  
 Now, related to culture and starting with "ethn". What's the Good Word?... *ethnic*!
 
-Easy right? Well every freshman inducted into this cult of an event thought so as well. The rules mentioned are just a subset, and this seemingly harmless contest lasts for about 8 hours in practice. So, to alleviate the pain of countless souls, I bring to you an automated solution to this heart wrenching competition: *That's the Good Word*
+Easy right? Well every freshman inducted into this cult of an event thought so as well. The rules mentioned are just a subset, and this seemingly harmless contest lasts for about 8 hours in practice. So, to alleviate the pain of countless souls, I bring to you an automated solution to this heart wrenching competition: *That's the Good Word*  
+
+The approach includes downloading and cleaning 
