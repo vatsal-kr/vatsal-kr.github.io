@@ -34,6 +34,9 @@
             {%- if site.work_url -%}
             <a href="{{ site.work_url }}" title="Work"><i class="fas fa-briefcase"></i></a>
             {% endif %}
+            {%- if site.link_to_cv -%}
+            <a href="{{ site.link_to_cv }}" title="CV"><i class="fas fa-file-pdf-o"></i></a>
+            {% endif %}s
             {%- if site.wikidata_id -%}
             <a href="https://www.wikidata.org/wiki/{{ site.wikidata_id }}" title="Wikidata"><i class="fas fa-barcode"></i></a>
             {% endif %}
