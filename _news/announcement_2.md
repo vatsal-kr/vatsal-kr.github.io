@@ -4,6 +4,7 @@ title: Won the Natural Language Inference track of the IndoML Datathon 2022
 date: 2021-12-18 16:00:00+0500
 inline: false
 ---
+Link to Code:  
 
 The IndoML Datathon was organized as a part of the IndoML Symposium 2021 and was  organized by a team consisting of academics and researchers from IIT Gandhinagar, IIT Kharagpur, University of Warwick, Google, and Microsoft Research with a theme of “Data for AI and AI for Data”. The broad aim of this Datathon is to invite participants to gain experience in solving real world data science/ML problems posed by experts in industry and academia.  
 ---
