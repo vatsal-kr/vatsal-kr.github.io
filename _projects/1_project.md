@@ -6,7 +6,7 @@ img: assets/img/Wordnet_Graph.png
 importance: 1
 category: work
 ---
-
+[Link to code](https://github.com/vatsal-kr/Thats-The-Good-Word)
 The project is based around a famous General Championship event at IIT Kharagpur, *What's the Good Word*, wherein teams of three compete to guess 5 words in the shortest possible time.  
 
 The major rules of the game are:
@@ -41,4 +41,4 @@ Now, related to culture and starting with "ethn". What's the Good Word?... *ethn
 
 Easy right? Well every freshman inducted into this cult of an event thought so as well. The rules mentioned are just a subset, and this seemingly harmless contest lasts for about 8 hours in practice. So, to alleviate the pain of countless souls, I bring to you an automated solution to this heart wrenching competition: *That's the Good Word*  
 
-The approach includes downloading and cleaning 
+The approach includes downloading and cleaning

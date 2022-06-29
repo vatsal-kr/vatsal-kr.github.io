@@ -4,10 +4,8 @@ title: Won the Natural Language Inference track of the IndoML Datathon 2022
 date: 2021-12-18 16:00:00+0500
 inline: false
 ---
-Link to Code:  
-
 The IndoML Datathon was organized as a part of the IndoML Symposium 2021 and was  organized by a team consisting of academics and researchers from IIT Gandhinagar, IIT Kharagpur, University of Warwick, Google, and Microsoft Research with a theme of “Data for AI and AI for Data”. The broad aim of this Datathon is to invite participants to gain experience in solving real world data science/ML problems posed by experts in industry and academia.  
----
+
 The challenge comprised of a Conversational Code-switched Natural Language Inference dataset, in English and Hindi (written in Roman script). The premise is a multi-turn dialog and hypothesis is a sentence. Unlike the traditional NLI task, which is to determine whether the hypothesis is entailed by or contradicts with the premise, here, the task is to predict whether the inference of contradiction or entailment would require some sort of external knowledge or not.  
 
 ```
