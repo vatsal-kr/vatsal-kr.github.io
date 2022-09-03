@@ -58,7 +58,7 @@ gitlab_username: # your GitLab user name
 twitter_username: Vatsal__Krishna # your Twitter handle
 linkedin_username: vatsal-venkatkrishna # your LinkedIn user name
 link_to_cv: https://drive.google.com/file/d/1Nw0XPMWBCJxTGshPbg71IqFi0ZN2At-V/view?usp=sharing
-scholar_userid: # your Google Scholar ID
+scholar_userid: 7d-cNmMAAAAJ # your Google Scholar ID
 orcid_id: # your ORCID ID
 medium_username: # your Medium username
 quora_username: # your Quora username
@@ -82,7 +82,7 @@ panelbear_analytics:  # panelbear analytics site ID (format: XXXXXXXXX)
 # -----------------------------------------------------------------------------
 
 blog_name: Vatsal venkatkrishna  # blog_name will be displayed in your blog page
-blog_description: 
+blog_description:
 blog_nav_title: Blog # your blog must have a title for it to be displayed in the nav bar
 permalink: /blog/:year/:title/
 
