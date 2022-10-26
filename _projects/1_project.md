@@ -1,6 +1,6 @@
 ---
 layout: page
-title: That's the Good Word [[Code]](https://colab.research.google.com/drive/1NL2IPqTA52eR8ZcC0j1MVP5PIg5sG0q3?usp=sharing)
+title: That's the Good Word
 description: An automated solution to IIT Kharagpur's What's the Good Word Event
 img: assets/img/Wordnet_Graph.png
 importance: 1
@@ -8,7 +8,7 @@ category: work
 ---
 
 
-The project is based around a famous General Championship event at IIT Kharagpur, *What's the Good Word*, wherein teams of three compete to guess 5 words in the shortest possible time.  
+The project is based around a famous General Championship event at IIT Kharagpur, *What's the Good Word*, wherein teams of three compete to guess 5 words in the shortest possible time. The code for the project can be found at [[Link]](https://colab.research.google.com/drive/1NL2IPqTA52eR8ZcC0j1MVP5PIg5sG0q3?usp=sharing).
 
 Without going too much into the nitty-gritty details, the major rules of the game are:
 1. Each team consists of one *passer* and two *guessers*
