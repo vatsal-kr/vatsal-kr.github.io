@@ -114,7 +114,6 @@ collections:
   projects:
     output: true
     permalink: /projects/:path/
-
 news_limit: 5
 
 # -----------------------------------------------------------------------------
