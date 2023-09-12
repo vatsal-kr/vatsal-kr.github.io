@@ -6,19 +6,14 @@ subtitle:
 
 profile:
   align: center
-  image: prof_pic.jpg
-  address: >
-    <p>E-314, Azad Hall of Residence</p>
-    <p>IIT Kharagpur</p>
-    <p>West Bengal - 721302</p>
-
+  image: profile_pic.jpg
+  
 news: true  # includes a list of news items
 selected_papers: false # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
-I am a fourth-year undergraduate student at the Department of Chemical Engineering at the [Indian Institute of Technology, Kharagpur](http://www.iitkgp.ac.in/).
-Currently, I am a MITACS Globalink Research Intern at the [University of British Columbia, Okanagan](https://ok.ubc.ca/), working under the guidance of [Prof. Fatemeh Fard](https://cmps.ok.ubc.ca/about/contact/fatemeh-hendijani-fard/) on reproducing the pre-training codes for CodeBERT and GraphCodeBERT.  
+I am a fifth-year undergraduate student at the Department of Chemical Engineering at the [Indian Institute of Technology, Kharagpur](http://www.iitkgp.ac.in/). My research interests span the broad domain of Natural Language Processing (NLP).
 
-I have worked alongside graduate students at the [Complex Network Research Group](https://cnerg-iitkgp.github.io/) at IIT Kharagpur on graph-based machine learning and text summarization.  
+I worked on my [Bachelors Thesis](https://drive.google.com/file/d/1hoCcVLJ4Iij0xZYelMedQP29KsVGqmi0/view?usp=drive_link) on improving cross-jurisdiction legal text summarization with [Prof Matthias Grabmair](https://www.cs.cit.tum.de/lt/team/matthias-grabmair/) of the Technical University of Munich and [Prof Saptarshi Ghosh](https://sites.google.com/site/saptarshighosh/) of IIT Kharagpur. Previously I've worked with [Dr Melina Vidoni]() of the Australian National University on generating developer-friendly parameter docstrings for Python code, and with [Dr Fatemeh Fard](https://cmps.ok.ubc.ca/about/contact/fatemeh-hendijani-fard/) of the University of British Columbia on reproducing the pre-training codes for CodeBERT and GraphCodeBERT.  
 
-I am currently an Executive Editor at [The Scholars' Avenue](https://web.scholarsavenue.org), a student-run media body of IIT Kharagpur, and have also been associated with [Entrepreneurship Cell, IIT Kharagpur](https://www.ecell-iitkgp.org/) as an Associate Manager.
+Additionally, I am currently an Executive Editor at [The Scholars' Avenue](https://medium.com/the-scholars-avenue), the student-run media body of IIT Kharagpur, and an active member of the Quiz Club at IIT Kharagpur.
