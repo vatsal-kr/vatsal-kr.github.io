@@ -18,4 +18,4 @@ I worked on my [Bachelors Thesis](https://drive.google.com/file/d/1hoCcVLJ4Iij0x
 
 Additionally, I am currently an Executive Editor at [The Scholars' Avenue](https://medium.com/the-scholars-avenue), the student-run media body of IIT Kharagpur, and an active member of the [Quiz Club](https://www.instagram.com/iitkgp.qc/) at IIT Kharagpur.
 
-<span style="color: #ab1636">**I am actively looking for PhD positions starting in Fall 2024**</span>  
+**I am actively looking for PhD positions starting in Fall 2024**
