@@ -77,9 +77,11 @@ blockquote {
 
   .card-title {
     color: var(--global-text-color);
+    font-size: 0.95rem;
+  }
+  .card-text {
     font-size: 0.875rem;
   }
-
   .card-item {
     width: auto;
     margin-bottom: 10px;
