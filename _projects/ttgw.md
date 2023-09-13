@@ -3,7 +3,8 @@ layout: page
 title: That's the Good Word
 description: An automated solution to IIT Kharagpur's What's the Good Word Event
 img: assets/img/Wordnet_Graph.png
-importance: 1
+importance: 3
+category: all
 ---
 
 
