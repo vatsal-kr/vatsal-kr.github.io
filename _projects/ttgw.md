@@ -4,7 +4,6 @@ title: That's the Good Word
 description: An automated solution to IIT Kharagpur's What's the Good Word Event
 img: assets/img/Wordnet_Graph.png
 importance: 1
-category: work
 ---
 
 
@@ -52,6 +51,5 @@ Word 1: murder, Word 2: house, Word 3: mine
 ```
 {% endraw %}
 The first word is "murder", which is an exception that implies a suffix "cide". So, a word that is related to "murder", ends with "cide" and begins with "homi"... Rather unsurprisingly, we get homicide.
-
 
 The rules and regulations for the event are very knotted and complex, thereby making human efforts invariably riddled with errors, costing the team a penalty. Therefore, it would be interesting to see how advances in Natural Language Processing can counter this algorithm, and how it compares to expert and naive human attempts.
