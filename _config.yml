@@ -84,7 +84,7 @@ panelbear_analytics:  # panelbear analytics site ID (format: XXXXXXXXX)
 # -----------------------------------------------------------------------------
 
 blog_name: Words, what do they mean?  # blog_name will be displayed in your blog page
-blog_description:
+blog_description: They say one man's memories are another man's inspiration. They say it, not me.
 blog_nav_title: Blog # your blog must have a title for it to be displayed in the nav bar
 permalink: /blog/:year/:title/
 
@@ -116,7 +116,7 @@ collections:
   projects:
     output: true
     permalink: /projects/:path/
-news_limit: 10
+news_limit: 5
 
 # -----------------------------------------------------------------------------
 # Jekyll settings
