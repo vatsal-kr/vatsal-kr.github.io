@@ -3,7 +3,7 @@ layout: page
 title: Topic Discovery using Latent Dirichlet Allocation for Recommender System
 description: Created a recommendation system to map relevant questions to qualified professionals on CareerVillage
 img: assets/img/ggm.png
-importance: 2
+importance: 3
 category: all
 ---
 [Link to report](https://drive.google.com/file/d/11A5svDfOZCIzsuQbyVxalAY8ZikCPWvJ/view) 

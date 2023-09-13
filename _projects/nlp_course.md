@@ -3,7 +3,7 @@ layout: page
 title: Pre-trained model fusion
 description: Explored the impact of several pre-trained model fusion strategies on the performance of Legal NER systems
 img: assets/img/ptmf.jpg
-importance: 2
+importance: 4
 category: all
 ---
 [Link to code](https://github.com/vatsal-kr/LegalNER-CS60075)  

@@ -3,7 +3,7 @@ layout: page
 title: Query-Focused Medical Text Summarization
 description: Investigating the status of QFS in the medical domain    
 img: assets/img/qfs.png
-importance: 1
+importance: 12
 category: all
 ---
 [Link to report](https://drive.google.com/file/d/1Yf1UFv824UlMN8jlyXJGV7_YpepInKlR/view?usp=sharing) 
