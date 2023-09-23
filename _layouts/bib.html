@@ -2,15 +2,30 @@
 ---
 <!-- _layouts/bib.html -->
       <div class="row">
-        <div class="col-sm-2 abbr">
-        {%- if entry.abbr -%}
-          {%- if site.data.venues[entry.abbr] -%}
-          <abbr class="badge"><a href="{{site.data.venues[entry.abbr].url}}">{{entry.abbr}}</a></abbr>
-          {%- else -%}
-          <abbr class="badge">{{entry.abbr}}</abbr>
+        <div class="col-sm-2 {% if entry.preview %}preview{% else %}abbr{% endif %}">
+          {%- if entry.preview -%}
+            {% if entry.preview contains '://' -%}
+            <img data-zoomable class="preview z-depth-1 rounded" src="{{ entry.preview }}">
+            {%- else -%}
+              {%- assign entry_path = entry.preview | prepend: '/assets/img/' -%}
+              {% include figure.html
+              path=entry_path
+              class="preview z-depth-1 rounded"
+              zoomable=true
+              alt=entry.preview -%}
+            {%- endif -%}
+          {%- elsif entry.abbr -%}
+            {%- if site.data.venues[entry.abbr] -%}
+              {%- assign venue_style = nil -%}
+              {%- if site.data.venues[entry.abbr].color != blank -%}
+                {%- assign venue_style = site.data.venues[entry.abbr].color | prepend: 'style="background-color:' | append: '"' -%}
+              {%- endif -%}
+              <abbr class="badge" {% if venue_style %}{{venue_style}}{% endif %}><a href="{{site.data.venues[entry.abbr].url}}">{{entry.abbr}}</a></abbr>
+            {%- else -%}
+              <abbr class="badge">{{entry.abbr}}</abbr>
+            {%- endif -%}
           {%- endif -%}
-        {%- endif -%}
-        </div>
+          </div>
 
         <!-- Entry bib key -->
         <div id="{{entry.key}}" class="col-sm-8">
@@ -77,9 +92,10 @@
               {{"[Under Review]"}}
             {%- endif -%}
           {%- elsif entry.type == "inproceedings" -%}
-            {%- capture entrytype -%}<em>In {{entry.booktitle}}</em> {%- endcapture -%}
             {% if entry.underreview == true -%}
-              {{"[Under Review]"}}
+              {%- capture entrytype -%}<em> {{entry.booktitle}}</em>{{" [Under Review]"}}{%- endcapture -%}
+            {%- else -%}
+              {%- capture entrytype -%}<em> {{entry.booktitle}}</em> {%- endcapture -%}
             {%- endif -%}
           {%- else -%}
             {%- capture entrytype -%}{%- endcapture -%}
