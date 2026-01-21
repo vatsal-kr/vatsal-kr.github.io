@@ -21,13 +21,13 @@ repository               : "vatsal-kr/vatsal-kr.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "moi.png"
+  avatar           : "moi.jpg"
   name             : "Vatsal Venkatkrishna"
-  pronouns         : # example: "she/her"  
+  pronouns         : "he/him"  
   bio              : "PhD Student @ UKP Lab, INSAIT"
   location         : "Sofia, Bulgaria"
   employer         : "INSAIT"
-  uri              : 
+  uri              : # URI
   email            : "vatsal.venkatkrishna@insait.ai" 
 
   # Academic websites
@@ -76,9 +76,10 @@ author:
 
 # Publication Category - The following the list of publication categories and their headings
 publication_category:
-  conferences:
+  - key: preprints
+    title: 'Preprints'
+  - key: conferences
     title: 'Conference Papers'
-
 # Site Settings
 teaser                   : moi.png # filename of teaser fallback teaser image placed in /images/, .e.g. "500x300.png"
 breadcrumbs              : false # true, false (default)
