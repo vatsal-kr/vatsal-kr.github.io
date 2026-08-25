@@ -78,6 +78,8 @@ author:
 publication_category:
   - key: preprints
     title: 'Preprints'
+  - key: journals
+    title: 'Journal Papers'
   - key: conferences
     title: 'Conference Papers'
 # Site Settings
