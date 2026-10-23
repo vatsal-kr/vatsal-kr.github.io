@@ -92,12 +92,12 @@ footer.wrap { border-top: 3px solid var(--ink); padding: 20px 24px 40px; font-si
   .topbar ul, .strip { display: none; }
   .gamewin { display: block; }
   .desk-i { display: none; } .mob-i { display: inline; }
-  .profile { grid-template-columns: 84px 1fr; column-gap: 18px; padding: 16px 0 28px; margin-bottom: 0; }
+  .profile { grid-template-columns: 84px minmax(0, 1fr); column-gap: 18px; padding: 16px 0 28px; margin-bottom: 0; }
   .profile picture { grid-row: 1; }
   .avatar { width: 84px; height: 84px; box-shadow: 4px 4px 0 var(--sun), 4px 4px 0 3px var(--ink); }
   .profile .id { align-self: center; }
   .profile .bio { grid-column: 1 / span 2; }
-  h1 { font-size: 34px; }
+  h1 { font-size: clamp(24px, 7.6vw, 34px); overflow-wrap: anywhere; } /* the surname fits beside the photo down to 320px */
   .kicker { font-size: 11px; }
   .lead p { font-size: 17px; }
   .pubs { grid-template-columns: 1fr; }
