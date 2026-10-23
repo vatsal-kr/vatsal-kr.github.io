@@ -153,7 +153,7 @@ class CatBrain {
     this.bumpA = s2 === s ? a : -1;
     if (DIRS[a][0]) this.facing = DIRS[a][0];
     if (s2 === this.snack) this.onSnack();
-    else if (this.phase === 'explore') this.msg = `${this.breedName} exploring… ${this.steps} steps`;
+    else if (this.phase === 'explore') this.msg = `${this.breedName} exploring… ${this.steps} step${this.steps === 1 ? '' : 's'}`;
   }
 
   onSnack() {

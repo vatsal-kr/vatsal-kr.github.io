@@ -178,3 +178,11 @@ test('petting odds', () => {
   }
   assert.ok(ok / 2000 >= 0.6 && ok / 2000 <= 0.7, `ok rate ${ok / 2000}`);
 });
+
+test('status uses singular for one step', () => {
+  const b = new CatBrain({ cols: 14, rows: 8, seed: 11 });
+  tickUntil(b, ev => ev.includes('step'), 1000);
+  assert.match(b.msg, /exploring… 1 step$/);
+  tickUntil(b, ev => ev.includes('step'), 1000);
+  assert.match(b.msg, /exploring… 2 steps$/);
+});
