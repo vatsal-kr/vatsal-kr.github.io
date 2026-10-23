@@ -92,7 +92,7 @@ function firstLoadFiles() {
   const html = read('index.html');
   const files = new Set(['index.html']);
   for (const tag of html.match(/<(link|script|img|source)\b[^>]*>/g) || []) {
-    if (/rel="(canonical|alternate icon)"/.test(tag)) continue;
+    if (/rel="canonical"/.test(tag)) continue; // count both icons: browsers fetch one or the other
     for (const m of tag.matchAll(/\b(?:href|src|srcset)="(\/[^"#?]+)"/g)) files.add(m[1].slice(1));
   }
   for (const m of read('assets/site.css').matchAll(/url\(['"]?(\/[^'")]+)/g)) files.add(m[1].slice(1));
@@ -119,4 +119,14 @@ test('404 page exists', () => {
   assert.ok(html.includes('href="/"'));
   assert.doesNotMatch(html, /<(script|link|img)[^>]*(src|href)="https?:/i);
   assert.doesNotMatch(html, /cat\.js/);
+});
+
+test('favicon is the pixel cat, not the template owl', () => {
+  for (const f of ['index.html', '404.html']) {
+    const html = read(f), ico = html.indexOf('href="/favicon.ico"'), svg = html.indexOf('href="/favicon.svg"');
+    assert.ok(ico > 0 && svg > ico, `${f}: .ico link must come first so browsers that can use the SVG pick it`);
+    assert.match(html, /<link rel="icon" href="\/favicon\.ico" sizes="48x48">/);
+  }
+  assert.ok(fs.statSync(path.join(ROOT, 'favicon.ico')).size < 4096, 'favicon.ico is still the 15 KB template owl');
+  assert.ok(!exists('images/favicon.ico'));
 });
