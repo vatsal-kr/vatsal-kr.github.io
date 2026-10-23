@@ -77,9 +77,10 @@ async function open(c, url, { width, height, mobile = false, reduced = false }) 
   await sleep(300);
   const touch = (type, pts) => s('Input.dispatchTouchEvent', { type, touchPoints: pts });
   const tap = async (x, y) => { await touch('touchStart', [{ x, y }]); await sleep(50); await touch('touchEnd', []); };
-  const swipe = async (x, y) => { // finger drags down: the page scrolls back up
+  const swipe = async (x, y) => { // drag the finger whichever way the page can still scroll
+    const dy = await ev('scrollY') > 100 ? 16 : -16;
     await touch('touchStart', [{ x, y }]);
-    for (let k = 1; k <= 10; k++) { await sleep(16); await touch('touchMove', [{ x, y: y + 16 * k }]); }
+    for (let k = 1; k <= 10; k++) { await sleep(16); await touch('touchMove', [{ x, y: y + dy * k }]); }
     await touch('touchEnd', []);
   };
   return { ev, tap, swipe, close: () => c.send('Target.closeTarget', { targetId }) };
@@ -105,6 +106,9 @@ const checks = {
     await sleep(2500);
     const strip = await p.ev(hud('.strip')), panel = await p.ev(hud('.gamewin'));
     if (!stepped(panel) || strip !== '…') throw new Error(`strip='${strip}' panel='${panel}'`);
+
+    const [panelTop, introTop] = await p.ev(`(() => { scrollTo({ top: 0, behavior: 'instant' }); return ['.gamewin', '#about'].map(q => document.querySelector(q).getBoundingClientRect().top); })()`);
+    if (!(panelTop < introTop && panelTop < 120)) throw new Error(`panel is not at the top: panel ${panelTop}px, intro ${introTop}px`);
   },
   async 'reduced motion: still frame, a scroll does not start it, a tap does'(p) {
     await p.ev(`document.querySelector('.gamewin').scrollIntoView({ block: 'center', behavior: 'instant' })`);
@@ -124,7 +128,7 @@ const checks = {
     await p.ev(`document.querySelector('.gamewin').scrollIntoView({ block: 'center', behavior: 'instant' })`);
     await sleep(800);
     // Freeze the cat in the middle of its cell and put the snack under it (as during a meal).
-    const cat = `(() => { const b = __brains.at(-1); b.tick = () => []; b.catPrev = b.cat; b.p = 1; b.snack = b.cat; b.petting = null; return __at(b, ${PANEL}, b.cat); })()`;
+    const cat = `(() => { scrollTo({ top: 0, behavior: 'instant' }); const b = __brains.at(-1); b.tick = () => []; b.catPrev = b.cat; b.p = 1; b.snack = b.cat; b.petting = null; return __at(b, ${PANEL}, b.cat); })()`;
     const [x, y] = await p.ev(cat); await sleep(100);
     const y0 = await p.ev('scrollY');
     await p.swipe(x, y); await sleep(800);

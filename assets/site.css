@@ -42,8 +42,8 @@ img { display: block; }
 .strip { position: relative; height: 168px; border-top: 3px solid var(--ink); border-bottom: 3px solid var(--ink); background: #C2A452; }
 .strip .pxhud { position: absolute; left: 12px; bottom: 10px; background: var(--ink); color: var(--bg); padding: 5px 9px; pointer-events: none; }
 .strip .tip { position: absolute; right: 12px; bottom: 10px; font-family: var(--px); font-size: 11px; background: rgba(251, 247, 236, .94); padding: 4px 8px; border: 2px solid var(--ink); pointer-events: none; }
-.gamewin { display: none; border: 3px solid var(--ink); box-shadow: 5px 5px 0 var(--ink); background: var(--bg); border-radius: 6px; overflow: hidden; margin: 0 0 48px; }
-.gamewin .screen { height: 260px; background: #C2A452; }
+.gamewin { display: none; border: 3px solid var(--ink); box-shadow: 5px 5px 0 var(--ink); background: var(--bg); border-radius: 6px; overflow: hidden; margin: 4px 0 8px; }
+.gamewin .screen { height: 200px; background: #C2A452; }
 .gamewin .statusbar { border-top: 3px solid var(--ink); padding: 7px 10px; justify-content: space-between; }
 .gamewin .tip { font-family: var(--px); font-size: 10.5px; color: var(--muted); padding: 0 10px 8px; }
 
@@ -57,7 +57,6 @@ h1 { font-weight: 800; font-size: clamp(40px, 5.4vw, 60px); line-height: 1; lett
 .lead p { font-size: 18.5px; line-height: 1.58; color: #34423B; margin-top: 14px; max-width: 38em; }
 .lead p.aside { font-size: 17px; color: var(--muted); }
 .lead b { font-weight: 700; color: var(--ink); }
-.mob-i { display: none; }
 .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
 .links a { text-decoration: none; font-weight: 600; font-size: 15px; padding: 7px 14px; border: 2px solid var(--ink); background: var(--card); box-shadow: 3px 3px 0 var(--ink); border-radius: 6px; transition: transform .08s, box-shadow .08s; }
 .links a:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
@@ -91,7 +90,6 @@ footer.wrap { border-top: 3px solid var(--ink); padding: 20px 24px 40px; font-si
 @media (max-width: 860px) {
   .topbar ul, .strip { display: none; }
   .gamewin { display: block; }
-  .desk-i { display: none; } .mob-i { display: inline; }
   .profile { grid-template-columns: 84px minmax(0, 1fr); column-gap: 18px; padding: 16px 0 28px; margin-bottom: 0; }
   .profile picture { grid-row: 1; }
   .avatar { width: 84px; height: 84px; box-shadow: 4px 4px 0 var(--sun), 4px 4px 0 3px var(--ink); }

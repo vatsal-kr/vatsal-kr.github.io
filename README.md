@@ -18,8 +18,8 @@ Everything is in `index.html`:
 - **Papers:** one `<article class="pub">` per paper inside `#papers`, newest first. Keep your
   name as `<b>V. Venkatkrishna</b>` so it gets highlighted.
 - **News:** one `<li>` per item inside `#news`, newest first.
-- **Links:** the `.links` row, plus the CV link in the top nav. `cv/` and `resume/` redirect to
-  the CV too, so update those if the CV URL changes.
+- **Links:** the `.links` row. The old `cv/` and `resume/` URLs still redirect to the Google
+  Drive CV.
 
 Also bump `<lastmod>` in `sitemap.xml` when you make a meaningful update.
 

@@ -45,11 +45,8 @@ const LINKS = [
   'mailto:vatsal.venkatkrishna@insait.ai',
   'https://scholar.google.com/citations?user=vSL2ypoAAAAJ',
   'https://github.com/vatsal-kr',
-  CV_URL,
   'https://twitter.com/vatsal_krr',
-  'https://bsky.app/profile/vatsal-kr.bsky.social',
   'https://www.linkedin.com/in/vatsal-venkatkrishna',
-  'https://orcid.org/0009-0002-6041-3096',
 ];
 
 test('page has the core content', () => {
@@ -129,4 +126,14 @@ test('favicon is the pixel cat, not the template owl', () => {
   }
   assert.ok(fs.statSync(path.join(ROOT, 'favicon.ico')).size < 4096, 'favicon.ico is still the 15 KB template owl');
   assert.ok(!exists('images/favicon.ico'));
+});
+
+test('phone panel sits above the intro', () => {
+  const html = read('index.html');
+  assert.ok(html.indexOf('class="gamewin"') < html.indexOf('id="about"'), 'the phone panel must come before the profile');
+});
+
+test('CV, Bluesky and ORCID are not linked from the page', () => {
+  const html = read('index.html');
+  for (const s of [CV_URL, 'bsky.app', 'orcid.org', '>CV<', '>Bluesky<', '>ORCID<']) assert.ok(!html.includes(s), `still there: ${s}`);
 });
