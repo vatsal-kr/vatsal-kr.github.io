@@ -112,3 +112,11 @@ test('weight budget', () => {
   const js = ['assets/cat-brain.js', 'assets/cat.js'].filter(exists).reduce((a, f) => a + fs.statSync(path.join(ROOT, f)).size, 0);
   assert.ok(js < 30 * 1024, `cat scripts ${js} bytes`);
 });
+
+test('404 page exists', () => {
+  const html = read('404.html');
+  assert.ok(html.includes('this cat wandered off'));
+  assert.ok(html.includes('href="/"'));
+  assert.doesNotMatch(html, /<(script|link|img)[^>]*(src|href)="https?:/i);
+  assert.doesNotMatch(html, /cat\.js/);
+});
