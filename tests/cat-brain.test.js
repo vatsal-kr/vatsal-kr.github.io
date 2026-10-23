@@ -186,3 +186,15 @@ test('status uses singular for one step', () => {
   tickUntil(b, ev => ev.includes('step'), 1000);
   assert.match(b.msg, /exploring… 2 steps$/);
 });
+
+test('relocated snack stays off the top and bottom rows', () => {
+  // The desktop strip's labels sit over the bottom row; the snack must never hide under them.
+  for (let seed = 1; seed <= 30; seed++) {
+    const b = new CatBrain({ cols: 36, rows: 4, seed });
+    for (let k = 0; k < 3; k++) {
+      assert.notEqual(tickUntil(b, ev => ev.includes('run'), 3000000), -1, `seed ${seed}: no run`);
+      const y = Math.floor(b.snack / b.cols);
+      assert.ok(y >= 1 && y <= b.rows - 2, `seed ${seed}: snack moved to row ${y}`);
+    }
+  }
+});

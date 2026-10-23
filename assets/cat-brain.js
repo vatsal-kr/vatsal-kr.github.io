@@ -170,8 +170,10 @@ class CatBrain {
 
   afterPause() {
     if (this.after === 'run') {
-      const cand = [];
-      for (let s = 0; s < this.N; s++) if (this.dist[s] >= 6) cand.push(s);
+      // Like the first snack, keep it off the top and bottom rows (the page's labels cover the bottom one).
+      const cand = [], inner = s => { const y = (s / this.cols) | 0; return y >= 1 && y <= this.rows - 2; };
+      for (let s = 0; s < this.N; s++) if (this.dist[s] >= 6 && inner(s)) cand.push(s);
+      if (!cand.length) for (let s = 0; s < this.N; s++) if (this.dist[s] >= 6) cand.push(s);
       this.snack = cand.length ? this.pick(cand) : this.randomStart(3);
       this.dist = this.bfs(this.snack);
       this.sampleLook();
