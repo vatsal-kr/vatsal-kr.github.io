@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /docs/
+Disallow: /tests/
+Sitemap: https://vatsal-kr.github.io/sitemap.xml
