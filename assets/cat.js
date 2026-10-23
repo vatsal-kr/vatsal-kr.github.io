@@ -121,7 +121,7 @@ class CatView {
     this.brain = new CatBrain({ cols, rows });
     this.Vshow = new Float32Array(this.brain.N);
     this.trail = []; this.particles = []; this.bubble = null; this.flash = null; this.drag = this.down = null;
-    this.spawnA = 0; this.heartT = 0; this.lastMsg = null;
+    this.spawnA = this.still ? 1 : 0; this.heartT = 0; this.lastMsg = null;
     this.updateHud(); this.drawSpark(); this.draw();
   }
 
@@ -135,39 +135,44 @@ class CatView {
   bind() {
     const cv = this.cv;
     const local = e => { const r = cv.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
-    // Phones keep scrolling over the game; only a touch that starts on the snack is ours.
+    // Phones keep scrolling over the game; only a touch that starts on the snack (and not the cat) is ours.
     cv.addEventListener('touchstart', e => {
-      if (this.brain && e.touches[0] && this.cellAt(...local(e.touches[0])) === this.brain.snack) e.preventDefault();
+      if (!this.brain || !e.touches[0]) return;
+      const [x, y] = local(e.touches[0]);
+      if (this.cellAt(x, y) === this.brain.snack && !this.onCat(x, y)) e.preventDefault();
     }, { passive: false });
+    // A press only becomes a pet, a bush or a drop when it is released without the page scrolling
+    // (a scroll ends in pointercancel), so scrolling past never counts as playing.
     cv.addEventListener('pointerdown', e => {
       if (!this.brain) return;
-      const b = this.brain, [x, y] = local(e), s = this.cellAt(x, y);
-      b.touch(); this.still = false;
-      if (this.onCat(x, y)) {
-        if (b.pet()) this.bubble = { text: pick(b.petting.ok ? PURRS : SNUBS), life: 1.8 };
-        return;
-      }
-      if (s >= 0 && s === b.snack) { this.drag = { x, y }; cv.setPointerCapture(e.pointerId); cv.style.cursor = 'grabbing'; return; }
-      this.down = { x, y, s };
+      const [x, y] = local(e), s = this.cellAt(x, y), cat = this.onCat(x, y);
+      if (!cat && s >= 0 && s === this.brain.snack) { this.drag = { x, y }; cv.setPointerCapture(e.pointerId); cv.style.cursor = 'grabbing'; return; }
+      this.down = { x, y, s, cat };
     });
     cv.addEventListener('pointermove', e => {
       if (!this.brain) return;
       const [x, y] = local(e);
       if (this.drag) { this.drag.x = x; this.drag.y = y; return; }
       if (e.pointerType !== 'mouse') return;
-      const s = this.hover = this.cellAt(x, y);
+      const s = this.cellAt(x, y);
+      if (s !== this.hover) { this.hover = s; this.dirty = true; }
       cv.style.cursor = s < 0 ? 'default' : s === this.brain.snack ? 'grab' : 'pointer';
     });
     cv.addEventListener('pointerup', e => {
       if (!this.brain) return;
       const b = this.brain, [x, y] = local(e), s = this.cellAt(x, y), d = this.down;
-      b.touch(); this.down = null;
-      if (this.drag) { this.drag = null; cv.style.cursor = 'grab'; if (s >= 0) b.moveSnack(s); return; }
-      if (d && s >= 0 && s === d.s && Math.hypot(x - d.x, y - d.y) < 8 && !b.toggleWall(s)) this.flash = { s, life: .6 };
+      this.down = null;
+      if (this.drag) { this.drag = null; this.play(); cv.style.cursor = 'grab'; if (s >= 0) b.moveSnack(s); return; }
+      if (!d || Math.hypot(x - d.x, y - d.y) >= 8 || (!d.cat && (s < 0 || s !== d.s))) return;
+      this.play();
+      if (d.cat) { if (b.pet()) this.bubble = { text: pick(b.petting.ok ? PURRS : SNUBS), life: 1.8 }; }
+      else if (!b.toggleWall(s)) this.flash = { s, life: .6 };
     });
     cv.addEventListener('pointercancel', () => { this.down = this.drag = null; });
     cv.addEventListener('pointerleave', () => { this.hover = -1; });
   }
+
+  play() { this.brain.touch(); this.still = false; }
 
   updateHud() {
     const msg = this.brain.msg;
@@ -183,19 +188,22 @@ class CatView {
 
   frame(now) {
     const dt = Math.min(50, now - (this.lastNow || now)), b = this.brain;
-    this.lastNow = now; this.t += dt / 1000;
-    if (!this.still) {
-      for (const e of b.tick(dt)) {
-        if (e === 'step') { this.trail.push({ s: b.cat, life: 1 }); if (this.trail.length > 40) this.trail.shift(); }
-        else if (e === 'ate') {
-          const [x, y] = this.center(b.snack);
-          for (let i = 0; i < 3; i++) this.particles.push({ x: x + (i - 1) * this.cs * .28, y: y - this.cs * .35, vy: -28 - Math.random() * 22, life: 1 + i * .15, txt: '+1' });
-          this.drawSpark();
-        } else if (e === 'spawn') this.spawnA = 0;
-        else if (e === 'run') this.drawSpark();
-      }
-      this.updateHud();
+    this.lastNow = now;
+    if (this.still) { // reduced motion: one still frame, redrawn only when the hover outline moves
+      if (this.dirty) { this.dirty = false; this.draw(); }
+      return;
     }
+    this.t += dt / 1000;
+    for (const e of b.tick(dt)) {
+      if (e === 'step') { this.trail.push({ s: b.cat, life: 1 }); if (this.trail.length > 40) this.trail.shift(); }
+      else if (e === 'ate') {
+        const [x, y] = this.center(b.snack);
+        for (let i = 0; i < 3; i++) this.particles.push({ x: x + (i - 1) * this.cs * .28, y: y - this.cs * .35, vy: -28 - Math.random() * 22, life: 1 + i * .15, txt: '+1' });
+        this.drawSpark();
+      } else if (e === 'spawn') this.spawnA = 0;
+      else if (e === 'run') this.drawSpark();
+    }
+    this.updateHud();
     for (let s = 0; s < b.N; s++) {
       const target = b.walls[s] ? 0 : s === b.snack ? 1 : b.maxQ(b.Qd, s);
       this.Vshow[s] += (target - this.Vshow[s]) * .09;

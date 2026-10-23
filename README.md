@@ -45,7 +45,7 @@ cat learns. The tests check this.
 
 ```bash
 node --test tests/cat-brain.test.js tests/site.test.js   # engine, content, weight budget
-bash tests/smoke.sh                                      # headless Chrome: desktop, mobile, reduced motion
+node tests/smoke.js                                      # real headless Chrome: desktop, mobile, reduced motion, touch, narrow phones
 ```
 
 `tests/site.test.js` fails if the first load goes over 150 KB, or if the page starts pulling in
