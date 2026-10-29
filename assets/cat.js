@@ -100,7 +100,7 @@ function arrow(c, cx, cy, a, cs, v) { // greedy action as a 3-pixel chevron
 class CatView {
   constructor(root) {
     this.cv = root.querySelector('canvas'); this.ctx = this.cv.getContext('2d');
-    this.hud = root.querySelector('[data-cat-hud]'); this.spark = root.querySelector('[data-cat-spark]');
+    this.hud = root.querySelector('[data-cat-hud]');
     this.still = matchMedia('(prefers-reduced-motion: reduce)').matches;
     this.visible = false; this.t = 0; this.hover = -1;
     new ResizeObserver(() => this.resize()).observe(this.cv);
@@ -122,7 +122,7 @@ class CatView {
     this.Vshow = new Float32Array(this.brain.N);
     this.trail = []; this.particles = []; this.bubble = null; this.flash = null; this.drag = this.down = null;
     this.spawnA = this.still ? 1 : 0; this.heartT = 0; this.lastMsg = null;
-    this.updateHud(); this.drawSpark(); this.draw();
+    this.updateHud(); this.draw();
   }
 
   center(s) { const b = this.brain; return [this.ox + (s % b.cols + .5) * this.cs, this.oy + (((s / b.cols) | 0) + .5) * this.cs]; }
@@ -178,13 +178,6 @@ class CatView {
     const msg = this.brain.msg;
     if (msg !== this.lastMsg) { this.lastMsg = msg; this.hud.textContent = msg.toUpperCase(); }
   }
-  drawSpark() {
-    const h = this.brain.history, svg = this.spark;
-    if (h.length < 2) { svg.innerHTML = ''; return; }
-    const W = 70, H = 16, mx = Math.max(...h);
-    const pts = h.map((v, i) => `${(i / (h.length - 1) * (W - 2) + 1).toFixed(1)},${(H - 2 - v / mx * (H - 4)).toFixed(1)}`).join(' ');
-    svg.innerHTML = `<polyline points="${pts}" fill="none" stroke="#F2C14E" stroke-width="1.6" vector-effect="non-scaling-stroke"/>`;
-  }
 
   frame(now) {
     const dt = Math.min(50, now - (this.lastNow || now)), b = this.brain;
@@ -199,9 +192,7 @@ class CatView {
       else if (e === 'ate') {
         const [x, y] = this.center(b.snack);
         for (let i = 0; i < 3; i++) this.particles.push({ x: x + (i - 1) * this.cs * .28, y: y - this.cs * .35, vy: -28 - Math.random() * 22, life: 1 + i * .15, txt: '+1' });
-        this.drawSpark();
       } else if (e === 'spawn') this.spawnA = 0;
-      else if (e === 'run') this.drawSpark();
     }
     this.updateHud();
     for (let s = 0; s < b.N; s++) {

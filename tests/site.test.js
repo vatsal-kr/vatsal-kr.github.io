@@ -52,7 +52,8 @@ const LINKS = [
 test('page has the core content', () => {
   const html = read('index.html');
   for (const s of ['Vatsal Venkatkrishna', 'PhD student · INSAIT &amp; UKP Lab · Sofia', ...PAPERS, ...LINKS,
-    'The cat learns with Dyna-Q. Be nice to it.', 'exhibit A:', 'click: bush · drag: snack · pet: at own risk',
+    'The cat learns with Dyna-Q. Be nice to it.', 'exhibit A:', 'click a tile to plant or clear a bush · drag the snack to a new spot · click the cat to pet it (at own risk)',
+    'tap a tile to plant or clear a bush<br>drag the snack to a new spot<br>tap the cat to pet it (at own risk)',
     'Nov 2024', 'Mar 2024', 'Jan 2024', 'May 2023', 'May 2022']) {
     assert.ok(html.includes(s), `missing: ${s}`);
   }

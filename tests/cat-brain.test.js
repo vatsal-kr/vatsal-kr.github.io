@@ -57,6 +57,42 @@ test('explores then learns', () => {
   assert.equal(b.episode, 1);
 });
 
+test('on an empty street the cat follows its nose from afar, then explores near the snack', () => {
+  for (let seed = 1; seed <= 5; seed++) {
+    const b = new CatBrain({ cols: 40, rows: 4, seed });
+    b.walls.fill(0); b.snack = 1 * 40 + 38; b.dist = b.bfs(b.snack);
+    b.resetLearning(); b.startEpisode(2 * 40 + 1);
+    const far = s => Math.abs(s % 40 - 38) + Math.abs(((s / 40) | 0) - 1);
+    let approaching = true; // until it first gets within 20 cells; after that it may explore anywhere
+    assert.notEqual(tickUntil(b, ev => {
+      if (ev.includes('step') && approaching) assert.ok(far(b.cat) < far(b.catPrev), `seed ${seed}: strayed while far`);
+      if (far(b.cat) <= 20) approaching = false;
+      return ev.includes('ate');
+    }, 100000), -1);
+    assert.ok(b.steps > b.optimal, `seed ${seed}: went straight to the snack without exploring`);
+  }
+});
+
+test('phones get no scent, so they explore as before', () => {
+  for (let seed = 1; seed <= 10; seed++) assert.ok(new CatBrain({ cols: 8, rows: 5, seed }).Qo.every(v => v === 1), `seed ${seed}`);
+});
+
+test('far spawns on a wide strip explore about as much as a phone, without mapping the street', () => {
+  // Extra steps over the shortest path: a phone's first find vs the first trip from 15+ cells away on
+  // a 1440px strip. Flat optimism took ~315 on the strip; too strong a scent took ~14.
+  const median = a => a.sort((x, y) => x - y)[a.length >> 1];
+  const phone = [], strip = [];
+  for (let seed = 1; seed <= 30; seed++) {
+    let b = new CatBrain({ cols: 8, rows: 5, seed });
+    tickUntil(b, ev => ev.includes('ate'), 3000000); phone.push(b.steps - b.optimal);
+    b = new CatBrain({ cols: 36, rows: 4, seed });
+    assert.notEqual(tickUntil(b, ev => ev.includes('ate') && b.episode > 1 && b.optimal >= 15, 3000000), -1, `seed ${seed}: no far trip`);
+    strip.push(b.steps - b.optimal);
+  }
+  const p = median(phone), s = median(strip);
+  assert.ok(s >= p && s <= 200, `strip median ${s} extra steps, phone ${p}`);
+});
+
 test('respawn emits spawn', () => {
   const b = new CatBrain({ cols: 14, rows: 8, seed: 3 });
   tickUntil(b, ev => ev.includes('ate'), 200000);
@@ -179,16 +215,15 @@ test('petting odds', () => {
   assert.ok(ok / 2000 >= 0.6 && ok / 2000 <= 0.7, `ok rate ${ok / 2000}`);
 });
 
-test('status uses singular for one step', () => {
+test('status tells the story without statistics', () => {
   const b = new CatBrain({ cols: 14, rows: 8, seed: 11 });
-  tickUntil(b, ev => ev.includes('step'), 1000);
-  assert.match(b.msg, /exploring… 1 step$/);
-  tickUntil(b, ev => ev.includes('step'), 1000);
-  assert.match(b.msg, /exploring… 2 steps$/);
+  const msgs = new Set([b.msg]);
+  assert.notEqual(tickUntil(b, ev => { msgs.add(b.msg); return ev.includes('run'); }, 2000000), -1);
+  for (const m of msgs) assert.doesNotMatch(m, /\d/, m);
+  for (const s of ['smells', 'exploring…', 'found the', 'knows the way']) assert.ok([...msgs].some(m => m.includes(s)), `never said '${s}'`);
 });
 
 test('relocated snack stays off the top and bottom rows', () => {
-  // The desktop strip's labels sit over the bottom row; the snack must never hide under them.
   for (let seed = 1; seed <= 30; seed++) {
     const b = new CatBrain({ cols: 36, rows: 4, seed });
     for (let k = 0; k < 3; k++) {

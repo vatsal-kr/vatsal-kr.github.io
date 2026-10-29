@@ -31,7 +31,9 @@ shown at). Keep them small, around 20 KB at most.
 ## Tune the cat
 
 - **Learning:** the constants at the top of `assets/cat-brain.js` set the discount, planning
-  budget, step speed, ε schedule, idle time before the snack moves, and petting odds.
+  budget, step speed, ε schedule, scent range, idle time before the snack moves, and petting odds.
+  Within `SCENT` cells of the snack the cat explores; farther out it heads toward the snack, so
+  a far spawn on a wide screen doesn't map the whole street first.
 - **Breeds and snacks:** the names are in `CatBrain.BREEDS` / `CatBrain.SNACKS` in
   `assets/cat-brain.js`. The matching pixel sprites are in `BREED_LOOKS` / `SNACK_LOOKS` in
   `assets/cat.js`, in the same order. One character is one pixel and `.` is transparent.

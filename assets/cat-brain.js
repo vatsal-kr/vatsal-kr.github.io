@@ -7,6 +7,7 @@ const PAUSE_PLAN = 500;                // backups per tick while the cat eats
 const MEAL_MS = 1100;                  // pause after reaching the snack
 const EXPLORE_MS = 42, LEARN_MS = 100; // time per step
 const EPS0 = 0.2, EPS_DECAY = 0.7, EPS_MIN = 0.03;
+const SCENT = 16;                      // farther than this many cells (Manhattan), the cat smells which way the snack is
 const IDLE_MS = 8000;                  // no visitor input for this long before the snack moves on its own
 const PET_S = 1.8, PURR_P = 0.65;
 const DIRS = [[0, -1], [1, 0], [0, 1], [-1, 0]];
@@ -100,16 +101,18 @@ class CatBrain {
     this.snackKind = other(this.snackKind, CatBrain.SNACKS.length);
   }
 
-  // Two tables learn from the same experience: Qo starts optimistic (1) and drives
-  // exploration; Qd starts at 0, is what gets drawn, and drives the cat once it knows.
+  // Two tables learn from the same experience: Qo starts optimistic and drives exploration;
+  // Qd starts at 0, is what gets drawn, and drives the cat once it knows. Near the snack every
+  // Qo move starts at 1, so the cat explores; farther out, it follows its nose (see scent).
   resetLearning() {
     const N4 = this.N * 4;
     this.Qd = new Float32Array(N4);
-    this.Qo = new Float32Array(N4).fill(1);
+    this.Qo = new Float32Array(N4);
+    for (let sa = 0; sa < N4; sa++) this.Qo[sa] = this.scent(sa);
     this.next = new Int32Array(N4).fill(-1);
     this.rew = new Float32Array(N4);
     this.seen = [];
-    this.phase = 'explore'; this.eps = EPS0; this.solvedStreak = 0; this.episode = 0; this.history = [];
+    this.phase = 'explore'; this.eps = EPS0; this.solvedStreak = 0; this.episode = 0;
     this.msg = `a ${this.breedName} smells ${this.snackName}…`;
   }
 
@@ -130,6 +133,12 @@ class CatBrain {
     if (x < 0 || y < 0 || x >= this.cols || y >= this.rows) return s;
     const n = this.idx(x, y);
     return this.walls[n] ? s : n;
+  }
+  // 1 if move a lands within SCENT cells of the snack, then γ per cell farther out, bushes ignored.
+  scent(sa) {
+    const s = (sa / 4) | 0, [dx, dy] = DIRS[sa % 4], c = this.cols;
+    const x = Math.min(c - 1, Math.max(0, s % c + dx)), y = Math.min(this.rows - 1, Math.max(0, ((s / c) | 0) + dy));
+    return Math.pow(GAMMA, Math.max(0, Math.abs(x - this.snack % c) + Math.abs(y - ((this.snack / c) | 0)) - SCENT));
   }
   backup(Q, sa) { // deterministic world, so α = 1
     const s2 = this.next[sa];
@@ -153,15 +162,14 @@ class CatBrain {
     this.bumpA = s2 === s ? a : -1;
     if (DIRS[a][0]) this.facing = DIRS[a][0];
     if (s2 === this.snack) this.onSnack();
-    else if (this.phase === 'explore') this.msg = `${this.breedName} exploring… ${this.steps} step${this.steps === 1 ? '' : 's'}`;
+    else if (this.phase === 'explore') this.msg = `${this.breedName} exploring…`;
   }
 
   onSnack() {
     this.episode++;
-    this.history.push(this.steps); if (this.history.length > 24) this.history.shift();
     this.solvedStreak = this.steps <= this.optimal + 2 ? this.solvedStreak + 1 : 0;
-    if (this.phase === 'explore') { this.phase = 'learn'; this.msg = `found the ${this.snackName} in ${this.steps} steps! value spreading back…`; }
-    else this.msg = `episode ${this.episode}: ${this.steps} steps (shortest is ${this.optimal})`;
+    if (this.phase === 'explore') { this.phase = 'learn'; this.msg = `found the ${this.snackName}! value spreading back…`; }
+    else this.msg = this.solvedStreak >= 3 ? `${this.breedName} knows the way to the ${this.snackName}` : `more ${this.snackName}! still learning the way…`;
     this.eps = Math.max(EPS_MIN, this.eps * EPS_DECAY);
     this.pause = MEAL_MS;
     this.after = this.solvedStreak >= 3 && this.time - this.lastTouch > IDLE_MS ? 'run' : 'respawn';
@@ -170,7 +178,7 @@ class CatBrain {
 
   afterPause() {
     if (this.after === 'run') {
-      // Like the first snack, keep it off the top and bottom rows (the page's labels cover the bottom one).
+      // Like the first snack, keep it off the top and bottom rows.
       const cand = [], inner = s => { const y = (s / this.cols) | 0; return y >= 1 && y <= this.rows - 2; };
       for (let s = 0; s < this.N; s++) if (this.dist[s] >= 6 && inner(s)) cand.push(s);
       if (!cand.length) for (let s = 0; s < this.N; s++) if (this.dist[s] >= 6) cand.push(s);
@@ -209,7 +217,7 @@ class CatBrain {
     this.walls[s] ^= 1;
     if (!this.connected()) { this.walls[s] ^= 1; return false; }
     for (const n of [s, ...this.nbrs(s)]) for (let a = 0; a < 4; a++) {
-      const sa = n * 4 + a; this.next[sa] = -1; this.Qd[sa] = 0; this.Qo[sa] = 1;
+      const sa = n * 4 + a; this.next[sa] = -1; this.Qd[sa] = 0; this.Qo[sa] = this.scent(sa);
     }
     this.seen = this.seen.filter(sa => this.next[sa] >= 0);
     this.dist = this.bfs(this.snack);

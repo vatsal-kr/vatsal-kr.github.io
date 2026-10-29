@@ -87,7 +87,7 @@ async function open(c, url, { width, height, mobile = false, reduced = false }) 
 }
 
 const hud = sel => `document.querySelector('${sel} [data-cat-hud]').textContent`;
-const stepped = t => /STEP|FOUND|EPISODE/.test(t);
+const stepped = t => /EXPLORING|FOUND|MORE|KNOWS/.test(t);
 const PANEL = `document.querySelector('.gamewin canvas')`;
 const freeCell = `(() => { const b = __brains.at(-1), cv = ${PANEL};
   for (let s = 0; s < b.N; s++) {

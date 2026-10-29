@@ -37,15 +37,17 @@ img { display: block; }
 
 /* ---- the cat ---- */
 .cat-canvas { display: block; width: 100%; height: 100%; touch-action: pan-y pinch-zoom; cursor: pointer; }
-.pxhud { font-family: var(--px); font-size: 11.5px; display: flex; gap: 10px; align-items: center; }
-.pxhud svg { width: 70px; height: 16px; flex: none; }
-.strip { position: relative; height: 168px; border-top: 3px solid var(--ink); border-bottom: 3px solid var(--ink); background: #C2A452; }
-.strip .pxhud { position: absolute; left: 12px; bottom: 10px; background: var(--ink); color: var(--bg); padding: 5px 9px; pointer-events: none; }
-.strip .tip { position: absolute; right: 12px; bottom: 10px; font-family: var(--px); font-size: 11px; background: rgba(251, 247, 236, .94); padding: 4px 8px; border: 2px solid var(--ink); pointer-events: none; }
+.pxhud { font-family: var(--px); font-size: 11.5px; }
+.strip .screen { height: 168px; border-top: 3px solid var(--ink); border-bottom: 3px solid var(--ink); background: #C2A452; }
+/* Below the street, like the phone's status bar. The status gets a fixed width (room for its longest line), so
+   the instructions wrap under it on narrower screens and don't jump around as the status changes length. */
+.strip .statusbar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 24px; padding: 8px 12px; background: var(--ink); color: var(--bg); }
+.strip .pxhud { flex: 0 0 34em; }
+.strip .tip { font-family: var(--px); font-size: 11px; color: #B9C4BD; }
 .gamewin { display: none; border: 3px solid var(--ink); box-shadow: 5px 5px 0 var(--ink); background: var(--bg); border-radius: 6px; overflow: hidden; margin: 4px 0 8px; }
 .gamewin .screen { height: 200px; background: #C2A452; }
-.gamewin .statusbar { border-top: 3px solid var(--ink); padding: 7px 10px; justify-content: space-between; }
-.gamewin .tip { font-family: var(--px); font-size: 10.5px; color: var(--muted); padding: 0 10px 8px; }
+.gamewin .statusbar { border-top: 3px solid var(--ink); padding: 7px 10px; }
+.gamewin .tip { font-family: var(--px); font-size: 10.5px; line-height: 1.6; color: var(--muted); padding: 0 10px 8px; }
 
 /* ---- profile ---- */
 .profile { display: grid; grid-template-columns: auto 1fr; column-gap: 36px; align-items: start; padding: 44px 0 36px; margin-bottom: 24px; }
